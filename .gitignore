@@ -1,0 +1,26 @@
+# Playwright MCP temp logs and pages
+.playwright-mcp/
+.playwright/
+homepage.png
+homepage_fixed_badges.png
+products_fixed_badges.png
+homepage_mobile.png
+product_mobile.png
+about_us_page.png
+about_us_minimal.png
+product_hover_zoom.png
+products_no_sorting.png
+products_no_badges.png
+
+# PHP / Web Server local logs
+web_db_check.php
+db_test.php
+db_check_tables.php
+error_log
+.phpunit.result.cache
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
