@@ -33,8 +33,8 @@ $currentUser = $_SESSION['user'] ?? null;
             <nav class="navbar">
                 <!-- Logo -->
                 <div class="logo" style="display: flex; align-items: center;">
-                    <a href="<?php echo BASE_URL; ?>/" style="display: flex; align-items: center;">
-                        <img src="<?php echo BASE_URL; ?>/public/assets/images/maxperry-logo.png" alt="MaxPerry Logo" class="main-logo" style="height: 110px; width: auto; object-fit: contain; transition: var(--transition);">
+                    <a href="<?php echo BASE_URL; ?>/" class="logo-wrapper">
+                        <img src="<?php echo BASE_URL; ?>/public/assets/images/maxperry-logo.png" alt="MaxPerry Logo" class="main-logo">
                     </a>
                 </div>
 

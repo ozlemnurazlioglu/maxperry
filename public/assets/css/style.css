@@ -95,6 +95,28 @@ header {
     position: relative;
 }
 
+.logo-wrapper {
+    height: 52px;
+    width: 115px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.main-logo {
+    height: 120px;
+    max-width: none;
+    width: auto;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: var(--transition);
+}
+
 .logo a {
     font-family: var(--font-heading);
     font-size: 26px;
@@ -1052,8 +1074,12 @@ footer {
     .logo a {
         font-size: 22px;
     }
+    .logo-wrapper {
+        height: 38px;
+        width: 80px;
+    }
     .main-logo {
-        height: 65px !important;
+        height: 80px !important;
     }
     .hero {
         height: 50vh;
