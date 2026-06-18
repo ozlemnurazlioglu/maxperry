@@ -56,27 +56,30 @@
             <?php if (isset($products) && !empty($products)): ?>
                 <?php foreach ($products as $prod): 
                     // High-fashion fallback mappings for visual perfection
-                    $imgSrc = BASE_URL . '/public/assets/images/' . $prod['image_url'];
+                    $imageParts = explode(',', $prod['image_url']);
+                    $coverImage = trim($imageParts[0] ?? '');
+                    
+                    $imgSrc = BASE_URL . '/public/assets/images/' . $coverImage;
                     $isPlaceholder = false;
 
-                    if ($prod['image_url'] === 'zumrut-saten.jpg') {
+                    if ($coverImage === 'zumrut-saten.jpg') {
                         $imgSrc = 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=600';
-                    } elseif ($prod['image_url'] === 'rose-gold-saten.jpg') {
+                    } elseif ($coverImage === 'rose-gold-saten.jpg') {
                         $imgSrc = 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&q=80&w=600';
-                    } elseif ($prod['image_url'] === 'gumus-payetli.jpg') {
+                    } elseif ($coverImage === 'gumus-payetli.jpg') {
                         $imgSrc = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600';
-                    } elseif ($prod['image_url'] === 'siyah-payetli.jpg') {
+                    } elseif ($coverImage === 'siyah-payetli.jpg') {
                         $imgSrc = 'https://images.unsplash.com/photo-1539008885868-47a40df6ee5f?auto=format&fit=crop&q=80&w=600';
-                    } elseif ($prod['image_url'] === 'pudra-dantel.jpg') {
+                    } elseif ($coverImage === 'pudra-dantel.jpg') {
                         $imgSrc = 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&q=80&w=600';
-                    } elseif ($prod['image_url'] === 'ekru-helen.jpg') {
+                    } elseif ($coverImage === 'ekru-helen.jpg') {
                         $imgSrc = 'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&q=80&w=600';
-                    } elseif ($prod['image_url'] === 'mavi-kadife.jpg') {
+                    } elseif ($coverImage === 'mavi-kadife.jpg') {
                         $imgSrc = 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?auto=format&fit=crop&q=80&w=600';
                     } else {
                         // Check if the uploaded file actually exists on the disk
-                        $localPath = __DIR__ . '/../../../public/assets/images/' . $prod['image_url'];
-                        if (empty($prod['image_url']) || !file_exists($localPath)) {
+                        $localPath = __DIR__ . '/../../../public/assets/images/' . $coverImage;
+                        if (empty($coverImage) || !file_exists($localPath)) {
                             $isPlaceholder = true;
                         }
                     }
