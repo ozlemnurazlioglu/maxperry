@@ -114,14 +114,5 @@ Tarayıcınızı açıp `http://localhost:8000` adresine giderek MaxPerry web si
 
 ---
 
-## 🔑 Test Hesap Bilgileri
-
-Sistemi doğrudan test edebilmeniz için `schema.sql` içerisinde önceden tanımlanmış iki tür kullanıcı hesabı bulunmaktadır:
-
-### 👑 Yönetici (Admin) Hesabı:
-*   **E-Posta:** `admin@maxperry.com`
-*   **Şifre:** `admin123`
-*(Giriş yaptıktan sonra sağ üst köşedeki **Gösterge Paneli** ikonuna tıklayarak Admin Paneli'ne erişebilirsiniz.)*
-
 ### 🛍️ Standart Müşteri Hesabı oluşturmak için:
 *   Sağ üst köşedeki profil ikonuna tıklayıp **Kayıt Olun** seçeneğiyle saniyeler içinde yeni bir müşteri hesabı oluşturabilir, sepetinize ürün ekleyip adresinizi girerek siparişinizi başarıyla tamamlayabilirsiniz!
