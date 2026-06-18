@@ -95,7 +95,31 @@ header {
     position: relative;
 }
 
-.main-logo {
+.brand-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 3px;
+}
+
+.brand-icon {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.brand-text {
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: #000000;
+    line-height: 1;
+    margin-top: 2px;
     transition: var(--transition);
 }
 
@@ -1056,8 +1080,12 @@ footer {
     .logo a {
         font-size: 22px;
     }
-    .main-logo {
-        height: 40px !important;
+    .brand-icon {
+        height: 28px;
+    }
+    .brand-text {
+        font-size: 8px;
+        letter-spacing: 2px;
     }
     .hero {
         height: 50vh;
