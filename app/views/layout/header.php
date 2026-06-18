@@ -34,7 +34,7 @@ $currentUser = $_SESSION['user'] ?? null;
                 <!-- Logo -->
                 <div class="logo" style="display: flex; align-items: center;">
                     <a href="<?php echo BASE_URL; ?>/" style="display: flex; align-items: center;">
-                        <img src="<?php echo BASE_URL; ?>/public/assets/images/maxperry-logo.png" alt="MaxPerry Logo" class="main-logo" style="height: 110px; width: auto; object-fit: contain; transition: var(--transition);">
+                        <img src="<?php echo BASE_URL; ?>/public/assets/images/maxperry-logo.png" alt="MaxPerry Logo" class="main-logo" style="height: 140px; width: auto; object-fit: contain; transition: var(--transition);">
                     </a>
                 </div>
 
