@@ -5,6 +5,8 @@
     </div>
 
     <form action="<?php echo BASE_URL; ?>/reset-password/submit" method="POST">
+        <!-- CSRF Token -->
+        <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
         <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
 
         <!-- Password Input -->

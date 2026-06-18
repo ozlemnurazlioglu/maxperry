@@ -15,6 +15,17 @@ class AuthController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/login');
         }
+        
+        // CSRF Protection
+        $this->checkCsrf();
+
+        // Simple Brute Force Rate Limiting (Lockout defense)
+        $now = time();
+        if (isset($_SESSION['login_lock_until']) && $_SESSION['login_lock_until'] > $now) {
+            $timeLeft = $_SESSION['login_lock_until'] - $now;
+            $_SESSION['error_message'] = "Güvenlik Engeli: Çok fazla başarısız giriş denemesi! Lütfen " . $timeLeft . " saniye bekleyin.";
+            $this->redirect('/login');
+        }
 
         $email = strtolower(trim($_POST['email'] ?? ''));
         $password = $_POST['password'] ?? '';
@@ -28,6 +39,13 @@ class AuthController extends Controller {
         $user = $userModel->getByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
+            // Clear brute-force metrics
+            unset($_SESSION['login_attempts']);
+            unset($_SESSION['login_lock_until']);
+
+            // Session Fixation Protection: Regenerate session ID upon successful login
+            session_regenerate_id(true);
+
             // Set session variables
             $_SESSION['user'] = [
                 'id' => $user['id'],
@@ -44,7 +62,16 @@ class AuthController extends Controller {
                 $this->redirect('/profile');
             }
         } else {
-            $_SESSION['error_message'] = "Hatalı e-posta adresi veya şifre.";
+            // Increment brute-force failure attempts
+            $_SESSION['login_attempts'] = ($_SESSION['login_attempts'] ?? 0) + 1;
+            if ($_SESSION['login_attempts'] >= 5) {
+                $_SESSION['login_lock_until'] = time() + 300; // Lock for 5 minutes
+                unset($_SESSION['login_attempts']);
+                $_SESSION['error_message'] = "Güvenlik Engeli: 5 kez hatalı giriş denemesi yapıldığı için giriş paneli 5 dakika süreyle kilitlenmiştir.";
+            } else {
+                $remaining = 5 - $_SESSION['login_attempts'];
+                $_SESSION['error_message'] = "Hatalı e-posta adresi veya şifre. Kalan deneme hakkınız: " . $remaining;
+            }
             $this->redirect('/login');
         }
     }
@@ -63,12 +90,27 @@ class AuthController extends Controller {
             $this->redirect('/register');
         }
 
+        // CSRF Protection
+        $this->checkCsrf();
+
         $name = trim($_POST['name'] ?? '');
         $email = strtolower(trim($_POST['email'] ?? ''));
         $password = $_POST['password'] ?? '';
 
         if (empty($name) || empty($email) || empty($password)) {
             $_SESSION['error_message'] = "Lütfen tüm alanları doldurun.";
+            $this->redirect('/register');
+        }
+
+        // Sane email validation
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['error_message'] = "Lütfen geçerli bir e-posta adresi girin.";
+            $this->redirect('/register');
+        }
+
+        // Strict password length policy
+        if (strlen($password) < 6) {
+            $_SESSION['error_message'] = "Şifreniz güvenlik nedeniyle en az 6 karakter olmalıdır.";
             $this->redirect('/register');
         }
 
@@ -134,6 +176,9 @@ class AuthController extends Controller {
             $this->redirect('/forgot-password');
         }
 
+        // CSRF Protection
+        $this->checkCsrf();
+
         $email = strtolower(trim($_POST['email'] ?? ''));
 
         if (empty($email)) {
@@ -145,7 +190,7 @@ class AuthController extends Controller {
         $user = $userModel->getByEmail($email);
 
         if (!$user) {
-            // Keep message generic/safe, or let them know
+            // Keep message generic/safe to prevent user enumeration
             $_SESSION['success_message'] = "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi (Kullanıcı kayıtlıysa).";
             $this->redirect('/forgot-password');
             return;
@@ -219,11 +264,20 @@ class AuthController extends Controller {
             $this->redirect('/login');
         }
 
+        // CSRF Protection
+        $this->checkCsrf();
+
         $token = $_POST['token'] ?? '';
         $password = $_POST['password'] ?? '';
 
         if (empty($token) || empty($password)) {
             $_SESSION['error_message'] = "Lütfen yeni şifrenizi girin.";
+            $this->redirect('/forgot-password');
+        }
+
+        // Strict password length policy on reset
+        if (strlen($password) < 6) {
+            $_SESSION['error_message'] = "Şifreniz güvenlik nedeniyle en az 6 karakter olmalıdır.";
             $this->redirect('/forgot-password');
         }
 

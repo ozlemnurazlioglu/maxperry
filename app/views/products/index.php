@@ -18,12 +18,12 @@
     </div>
 </div>
 
-<div class="container" style="display: grid; grid-template-columns: 240px 1fr; gap: 40px; margin-bottom: 60px;">
+<div class="container products-layout-container" style="margin-bottom: 60px;">
     
     <!-- Left Sidebar: Category Filters -->
-    <aside style="background-color: var(--bg-white); border: 1px solid var(--border-color); padding: 30px 20px; box-shadow: var(--shadow-soft); align-self: start;">
-        <h3 style="font-size: 18px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Kategoriler</h3>
-        <ul style="display: flex; flex-direction: column; gap: 12px;">
+    <aside class="products-sidebar">
+        <h3 class="products-sidebar-title">Kategoriler</h3>
+        <ul class="products-sidebar-list">
             <li>
                 <a href="<?php echo BASE_URL; ?>/products" style="font-size: 13px; font-weight: <?php echo !isset($activeCategory) ? '600; color: var(--primary);' : '500;'; ?>">
                     Tüm Koleksiyonlar

@@ -5,6 +5,8 @@
     </div>
 
     <form action="<?php echo BASE_URL; ?>/register/submit" method="POST">
+        <!-- CSRF Token -->
+        <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
         <!-- Name Input -->
         <div class="form-group">
             <label for="name">Ad Soyad</label>

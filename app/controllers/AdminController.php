@@ -51,6 +51,7 @@ class AdminController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/admin/products');
         }
+        $this->checkCsrf();
 
         $categoryId = (int)($_POST['category_id'] ?? 0);
         $name = htmlspecialchars(trim($_POST['name'] ?? ''));
@@ -127,9 +128,11 @@ class AdminController extends Controller {
 
     // Handle edit product submission
     public function editProduct($id) {
+        $id = (int)$id;
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/admin/products');
         }
+        $this->checkCsrf();
 
         $productModel = new Product();
         $product = $productModel->getById($id);
@@ -208,6 +211,7 @@ class AdminController extends Controller {
 
     // Handle product deletion
     public function deleteProduct($id) {
+        $id = (int)$id;
         $productModel = new Product();
         $product = $productModel->getById($id);
 
@@ -245,6 +249,7 @@ class AdminController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/admin/categories');
         }
+        $this->checkCsrf();
 
         $name = htmlspecialchars(trim($_POST['name'] ?? ''));
         $description = htmlspecialchars(trim($_POST['description'] ?? ''));
@@ -280,6 +285,7 @@ class AdminController extends Controller {
 
     // View edit category page
     public function editCategoryPage($id) {
+        $id = (int)$id;
         $categoryModel = new Category();
         $category = $categoryModel->getById($id);
 
@@ -296,9 +302,11 @@ class AdminController extends Controller {
 
     // Handle edit category submission
     public function editCategory($id) {
+        $id = (int)$id;
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/admin/categories');
         }
+        $this->checkCsrf();
 
         $categoryModel = new Category();
         $category = $categoryModel->getById($id);
@@ -342,6 +350,7 @@ class AdminController extends Controller {
 
     // Delete a category
     public function deleteCategory($id) {
+        $id = (int)$id;
         $categoryModel = new Category();
         $category = $categoryModel->getById($id);
 

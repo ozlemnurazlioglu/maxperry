@@ -31,6 +31,8 @@
 
         <div style="background-color: var(--bg-white); border: 1px solid var(--border-color); padding: 35px; box-shadow: var(--shadow-soft); border-radius: 4px;">
             <form action="<?php echo BASE_URL; ?>/admin/product/edit/<?php echo $product['id']; ?>/submit" method="POST" enctype="multipart/form-data">
+                <!-- CSRF Token -->
+                <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
                 
                 <!-- Product Name -->
                 <div class="form-group">

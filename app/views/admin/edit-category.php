@@ -31,6 +31,8 @@
 
         <div style="background-color: var(--bg-white); border: 1px solid var(--border-color); padding: 35px; box-shadow: var(--shadow-soft);">
             <form action="<?php echo BASE_URL; ?>/admin/category/edit/<?php echo $category['id']; ?>/submit" method="POST">
+                <!-- CSRF Token -->
+                <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
                 
                 <!-- Category Name -->
                 <div class="form-group">

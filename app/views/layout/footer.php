@@ -4,12 +4,6 @@
     <footer>
         <div class="container">
             <div class="footer-grid">
-                <!-- About MaxPerry -->
-                <div class="footer-widget">
-                    <h4>MaxPerry Abiye</h4>
-                    <p style="margin-top: 15px;">MaxPerry, modern çizgileri ve üstün dikiş kalitesiyle her özel davette zarafetinizi tamamlamak için kurulmuş lüks bir abiye markasıdır.</p>
-                </div>
-
                 <!-- Fast Links -->
                 <div class="footer-widget">
                     <h4>Hızlı Menü</h4>
@@ -17,15 +11,6 @@
                         <a href="<?php echo BASE_URL; ?>/">Ana Sayfa</a>
                         <a href="<?php echo BASE_URL; ?>/products">Tüm Koleksiyonlar</a>
                         <a href="<?php echo BASE_URL; ?>/contact">İletişim & Randevu</a>
-                    </div>
-                </div>
-
-                <!-- Policies -->
-                <div class="footer-widget">
-                    <h4>Kurumsal</h4>
-                    <div class="footer-links" style="margin-top: 15px;">
-                        <a href="<?php echo BASE_URL; ?>/about">Hakkımızda</a>
-                        <a href="#">Mağazamız</a>
                     </div>
                 </div>
 
@@ -42,7 +27,7 @@
 
             <!-- Bottom Copyright Section -->
             <div class="footer-bottom">
-                <p>&copy; <?php echo date('Y'); ?> MaxPerry. Tüm hakları saklıdır. Designed with Elegance.</p>
+                <p>&copy; <?php echo date('Y'); ?> MaxPerry. Tüm hakları saklıdır.</p>
             </div>
         </div>
     </footer>

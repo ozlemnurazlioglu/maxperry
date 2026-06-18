@@ -39,6 +39,33 @@ class Controller {
         exit;
     }
 
+    /**
+     * Validate CSRF Token securely.
+     * Aborts request with a user-friendly error message if token is invalid or missing.
+     */
+    protected function checkCsrf() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $token = $_POST['csrf_token'] ?? '';
+            if (!validateCsrfToken($token)) {
+                $_SESSION['error_message'] = "Güvenlik uyarısı: Geçersiz veya süresi dolmuş güvenlik (CSRF) anahtarı. Lütfen sayfayı yenileyip tekrar deneyin.";
+                
+                // For JSON/AJAX requests
+                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                    $this->json(['status' => 'error', 'message' => 'Geçersiz güvenlik (CSRF) anahtarı.'], 403);
+                }
+                
+                $referer = $_SERVER['HTTP_REFERER'] ?? '/';
+                // Ensure referer is safe and starts with BASE_URL or is relative
+                if (strpos($referer, BASE_URL) === 0) {
+                    header("Location: " . $referer);
+                } else {
+                    $this->redirect('/');
+                }
+                exit;
+            }
+        }
+    }
+
     // Helper for JSON responses
     protected function json($data, $statusCode = 200) {
         header('Content-Type: application/json');

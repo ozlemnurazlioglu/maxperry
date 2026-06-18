@@ -9,6 +9,8 @@
         </div>
 
         <form action="<?php echo BASE_URL; ?>/contact/submit" method="POST" style="text-align: left;">
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
             
             <!-- Name Input -->
             <div class="form-group" style="margin-bottom: 20px;">

@@ -5,6 +5,8 @@
     </div>
 
     <form action="<?php echo BASE_URL; ?>/forgot-password/submit" method="POST">
+        <!-- CSRF Token -->
+        <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
         <!-- Email Input -->
         <div class="form-group" style="margin-bottom: 25px;">
             <label for="email">E-Posta Adresi</label>

@@ -14,7 +14,7 @@ $imageFiles = explode(',', $product['image_url']);
     </div>
 
     <!-- Product Detail Centered Single Column Layout (Pure Visual Presentation - Just Images & Videos) -->
-    <div style="background-color: var(--bg-white); border: 1px solid var(--border-color); padding: 40px; box-shadow: var(--shadow-soft); margin-bottom: 60px; display: flex; flex-direction: column; gap: 30px; border-radius: 4px;">
+    <div class="product-detail-card">
         
         <!-- Media Section (Images & Videos stacked perfectly in center) -->
         <div style="display: flex; flex-direction: column; gap: 30px; width: 100%;">

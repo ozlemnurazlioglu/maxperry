@@ -5,6 +5,8 @@
     </div>
 
     <form action="<?php echo BASE_URL; ?>/login/submit" method="POST">
+        <!-- CSRF Token -->
+        <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
         <!-- Email Input -->
         <div class="form-group">
             <label for="email">E-Posta Adresi</label>

@@ -78,6 +78,7 @@ class HomeController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/contact');
         }
+        $this->checkCsrf();
 
         $name = htmlspecialchars(trim($_POST['name'] ?? ''));
         $email = strtolower(trim($_POST['email'] ?? ''));
