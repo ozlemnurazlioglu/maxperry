@@ -42,7 +42,7 @@ $imageFiles = explode(',', $product['image_url']);
                     $imgSrc = 'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&q=80&w=600';
                 } elseif ($imgFile === 'mavi-kadife.jpg') {
                     $imgSrc = 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?auto=format&fit=crop&q=80&w=600';
-                } elseif (strpos($imgFile, 'http://') === false && strpos($imgFile, 'https://') === false && !file_exists(__DIR__ . '/../../public/assets/images/' . $imgFile)) {
+                } elseif (strpos($imgFile, 'http://') === false && strpos($imgFile, 'https://') === false && !file_exists(__DIR__ . '/../../../public/assets/images/' . $imgFile)) {
                     $isPlaceholder = true;
                 }
             ?>

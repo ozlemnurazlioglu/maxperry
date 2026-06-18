@@ -74,7 +74,11 @@
                     } elseif ($prod['image_url'] === 'mavi-kadife.jpg') {
                         $imgSrc = 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?auto=format&fit=crop&q=80&w=600';
                     } else {
-                        $isPlaceholder = true;
+                        // Check if the uploaded file actually exists on the disk
+                        $localPath = __DIR__ . '/../../../public/assets/images/' . $prod['image_url'];
+                        if (empty($prod['image_url']) || !file_exists($localPath)) {
+                            $isPlaceholder = true;
+                        }
                     }
                 ?>
                     <div class="product-card">

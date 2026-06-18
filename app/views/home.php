@@ -51,7 +51,10 @@
                     $imgSrc = 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?auto=format&fit=crop&q=80&w=600'; // Blue dress
                 } else {
                     // Fallback to stylized CSS placeholder if we don't have matching Unsplash and local image file doesn't exist
-                    $isPlaceholder = true;
+                    $localPath = __DIR__ . '/../../public/assets/images/' . $prod['image_url'];
+                    if (empty($prod['image_url']) || !file_exists($localPath)) {
+                        $isPlaceholder = true;
+                    }
                 }
 
             ?>
