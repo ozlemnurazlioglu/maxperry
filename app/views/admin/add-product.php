@@ -30,7 +30,7 @@
         </div>
 
         <div style="background-color: var(--bg-white); border: 1px solid var(--border-color); padding: 35px; box-shadow: var(--shadow-soft); border-radius: 4px;">
-            <form action="<?php echo BASE_URL; ?>/admin/product/add/submit" method="POST" enctype="multipart/form-data">
+            <form id="add-product-form" action="<?php echo BASE_URL; ?>/admin/product/add/submit" method="POST" enctype="multipart/form-data">
                 <!-- CSRF Token -->
                 <input type="hidden" name="csrf_token" value="<?php echo generateCsrfToken(); ?>">
                 
@@ -40,12 +40,10 @@
                     <input type="text" id="name" name="name" class="form-control" placeholder="Örn: Siyah Balık Model Abiye" style="background-color: var(--bg-white);" required>
                 </div>
 
-
-
                 <!-- Image and Product Video -->
                 <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
                     <div>
-                        <label style="display:block; margin-bottom: 8px;">Ürün Görseli <span style="color: var(--error);">*</span></label>
+                        <label style="display:block; margin-bottom: 8px;">Ürün Görselleri <span style="color: var(--error);">*</span></label>
                         
                         <!-- Drag and Drop Dropzone -->
                         <div id="image-dropzone" style="border: 2px dashed var(--primary); padding: 20px; text-align: center; cursor: pointer; background-color: var(--bg-light); border-radius: 4px; transition: var(--transition);">
@@ -53,9 +51,14 @@
                             <p id="dropzone-text" style="font-size: 11px; color: var(--text-muted); font-weight: 500;">Görselleri sürükleyip bırakın veya tıklayın</p>
                             <input type="file" id="image" name="image[]" accept="image/*" multiple style="display: none;">
                         </div>
+
+                        <!-- Elegant Interactive Thumbnail Previews with Cover Selector -->
+                        <div id="image-previews-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 12px; margin-top: 15px;">
+                            <!-- Dynamically populated via JS -->
+                        </div>
                         
                         <!-- Fallback URL field -->
-                        <div style="margin-top: 10px;">
+                        <div style="margin-top: 15px;">
                             <label for="image_url" style="font-size: 10px; text-transform: none; color: var(--text-muted);">Veya alternatif görsel adı/linki girin:</label>
                             <input type="text" id="image_url" name="image_url" class="form-control" value="default-dress.jpg" style="background-color: var(--bg-white); padding: 8px; font-size: 11px;">
                         </div>
@@ -86,12 +89,17 @@
 
 </div>
 
-<!-- Drag & Drop JS Logic -->
+<!-- Drag & Drop & Interactive Cover Selector JS Logic -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const dropzone = document.getElementById('image-dropzone');
     const fileInput = document.getElementById('image');
     const dropzoneText = document.getElementById('dropzone-text');
+    const previewsContainer = document.getElementById('image-previews-container');
+    const form = document.getElementById('add-product-form');
+
+    let selectedFiles = [];
+    let coverIndex = 0; // Default first file is cover image
 
     dropzone.addEventListener('click', () => fileInput.click());
 
@@ -112,21 +120,72 @@ document.addEventListener('DOMContentLoaded', function() {
         dropzone.style.backgroundColor = 'var(--bg-light)';
 
         if (e.dataTransfer.files.length) {
-            // Use standard DataTransfer for perfect cross-browser multi-file assignment
-            const dt = new DataTransfer();
-            for (let i = 0; i < e.dataTransfer.files.length; i++) {
-                dt.items.add(e.dataTransfer.files[i]);
-            }
-            fileInput.files = dt.files;
-            updateDropzoneText(fileInput.files);
+            handleFilesSelection(e.dataTransfer.files);
         }
     });
 
     fileInput.addEventListener('change', () => {
         if (fileInput.files.length) {
-            updateDropzoneText(fileInput.files);
+            handleFilesSelection(fileInput.files);
         }
     });
+
+    function handleFilesSelection(files) {
+        selectedFiles = Array.from(files);
+        coverIndex = 0; // Reset cover index to first file
+        updatePreviews();
+        updateDropzoneText(selectedFiles);
+    }
+
+    function updatePreviews() {
+        previewsContainer.innerHTML = '';
+        
+        selectedFiles.forEach((file, index) => {
+            const isCover = (index === coverIndex);
+            const previewUrl = URL.createObjectURL(file);
+            
+            const thumbWrapper = document.createElement('div');
+            thumbWrapper.className = 'thumb-wrapper';
+            thumbWrapper.style.cssText = `
+                position: relative; 
+                width: 80px; 
+                height: 80px; 
+                border: 2px solid ${isCover ? 'var(--primary)' : 'var(--border-color)'}; 
+                border-radius: 4px; 
+                overflow: visible;
+                cursor: pointer;
+                box-shadow: ${isCover ? '0 0 8px rgba(212, 172, 13, 0.4)' : 'none'};
+                transition: var(--transition);
+            `;
+            
+            thumbWrapper.innerHTML = `
+                <img src="${previewUrl}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 2px;">
+                <span class="cover-badge" style="
+                    position: absolute; 
+                    bottom: 0; 
+                    left: 0; 
+                    right: 0; 
+                    background-color: ${isCover ? 'var(--primary)' : 'rgba(0,0,0,0.5)'}; 
+                    color: white; 
+                    font-size: 8px; 
+                    font-weight: bold; 
+                    text-align: center; 
+                    padding: 2px 0;
+                    text-transform: uppercase;
+                    border-bottom-left-radius: 2px;
+                    border-bottom-right-radius: 2px;
+                ">${isCover ? '★ KAPAK' : 'KAPAK YAP'}</span>
+            `;
+            
+            // Set cover on click
+            thumbWrapper.addEventListener('click', () => {
+                coverIndex = index;
+                updatePreviews();
+            });
+            
+            previewsContainer.appendChild(thumbWrapper);
+        });
+    }
 
     function updateDropzoneText(files) {
         if (files.length > 1) {
@@ -136,6 +195,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         dropzone.style.borderColor = 'var(--success)';
     }
+
+    // Intercept form submission to rearrange files with cover file at index 0
+    form.addEventListener('submit', function(e) {
+        if (selectedFiles.length > 0) {
+            const dt = new DataTransfer();
+            
+            // 1. Add the selected cover file first! (so it occupies index 0)
+            dt.items.add(selectedFiles[coverIndex]);
+            
+            // 2. Add all other files
+            selectedFiles.forEach((file, index) => {
+                if (index !== coverIndex) {
+                    dt.items.add(file);
+                }
+            });
+            
+            // Overwrite file input files list
+            fileInput.files = dt.files;
+        }
+    });
 
     // Video Selector Box click handler
     const videoSelectorBox = document.getElementById('video-selector-box');
