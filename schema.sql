@@ -1,6 +1,4 @@
 -- MaxPerry E-Commerce Database Schema
-CREATE DATABASE IF NOT EXISTS `maxperry` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `maxperry`;
 
 -- Users Table
 CREATE TABLE IF NOT EXISTS `users` (
@@ -27,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 CREATE TABLE IF NOT EXISTS `products` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `sku` VARCHAR(50) NULL UNIQUE,
-    `category_id` INT NOT NULL,
+    `category_id` INT NULL DEFAULT NULL,
     `name` VARCHAR(150) NOT NULL,
     `slug` VARCHAR(150) NOT NULL UNIQUE,
     `description` TEXT NULL,
