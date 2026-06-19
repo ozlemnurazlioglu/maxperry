@@ -7,7 +7,7 @@ class Product extends Model {
         $stmt = $this->db->prepare("
             SELECT p.*, c.name as category_name 
             FROM products p 
-            JOIN categories c ON p.category_id = c.id 
+            LEFT JOIN categories c ON p.category_id = c.id 
             ORDER BY p.id DESC
         ");
         $stmt->execute();
@@ -19,7 +19,7 @@ class Product extends Model {
         $stmt = $this->db->prepare("
             SELECT p.*, c.name as category_name 
             FROM products p 
-            JOIN categories c ON p.category_id = c.id 
+            LEFT JOIN categories c ON p.category_id = c.id 
             ORDER BY p.id DESC 
             LIMIT :limit
         ");
@@ -33,7 +33,7 @@ class Product extends Model {
         $stmt = $this->db->prepare("
             SELECT p.*, c.name as category_name 
             FROM products p 
-            JOIN categories c ON p.category_id = c.id 
+            LEFT JOIN categories c ON p.category_id = c.id 
             WHERE p.category_id = :category_id 
             ORDER BY p.id DESC
         ");
@@ -46,7 +46,7 @@ class Product extends Model {
         $stmt = $this->db->prepare("
             SELECT p.*, c.name as category_name 
             FROM products p 
-            JOIN categories c ON p.category_id = c.id 
+            LEFT JOIN categories c ON p.category_id = c.id 
             WHERE p.slug = :slug 
             LIMIT 1
         ");
@@ -59,7 +59,7 @@ class Product extends Model {
         $stmt = $this->db->prepare("
             SELECT p.*, c.name as category_name 
             FROM products p 
-            JOIN categories c ON p.category_id = c.id 
+            LEFT JOIN categories c ON p.category_id = c.id 
             WHERE p.id = :id 
             LIMIT 1
         ");
@@ -123,7 +123,7 @@ class Product extends Model {
         $sql = "
             SELECT p.*, c.name as category_name 
             FROM products p 
-            JOIN categories c ON p.category_id = c.id 
+            LEFT JOIN categories c ON p.category_id = c.id 
             WHERE 1=1
         ";
         $params = [];
