@@ -16,49 +16,51 @@ $imageFiles = explode(',', $product['image_url']);
     <!-- Product Detail Centered Single Column Layout (Pure Visual Presentation - Just Images & Videos) -->
     <div class="product-detail-card">
         
-        <!-- Media Section (Images & Videos stacked perfectly in center) -->
+        <!-- Media Section (Images Grid & Videos) -->
         <div style="display: flex; flex-direction: column; gap: 30px; width: 100%;">
             
-            <!-- Stack of All Product Images -->
-            <?php foreach ($imageFiles as $imgFile): 
-                $imgFile = trim($imgFile);
-                if (empty($imgFile)) continue;
-                
-                // Determine high-fashion image mapping
-                $imgSrc = BASE_URL . '/public/assets/images/' . $imgFile;
-                $isPlaceholder = false;
+            <!-- Grid of All Product Images (Side by Side) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%;">
+                <?php foreach ($imageFiles as $imgFile): 
+                    $imgFile = trim($imgFile);
+                    if (empty($imgFile)) continue;
+                    
+                    // Determine high-fashion image mapping
+                    $imgSrc = BASE_URL . '/public/assets/images/' . $imgFile;
+                    $isPlaceholder = false;
 
-                if ($imgFile === 'zumrut-saten.jpg') {
-                    $imgSrc = 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=600';
-                } elseif ($imgFile === 'rose-gold-saten.jpg') {
-                    $imgSrc = 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&q=80&w=600';
-                } elseif ($imgFile === 'gumus-payetli.jpg') {
-                    $imgSrc = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600';
-                } elseif ($imgFile === 'siyah-payetli.jpg') {
-                    $imgSrc = 'https://images.unsplash.com/photo-1539008885868-47a40df6ee5f?auto=format&fit=crop&q=80&w=600';
-                } elseif ($imgFile === 'pudra-dantel.jpg') {
-                    $imgSrc = 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&q=80&w=600';
-                } elseif ($imgFile === 'ekru-helen.jpg') {
-                    $imgSrc = 'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&q=80&w=600';
-                } elseif ($imgFile === 'mavi-kadife.jpg') {
-                    $imgSrc = 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?auto=format&fit=crop&q=80&w=600';
-                } elseif (strpos($imgFile, 'http://') === false && strpos($imgFile, 'https://') === false && !file_exists(__DIR__ . '/../../../public/assets/images/' . $imgFile)) {
-                    $isPlaceholder = true;
-                }
-            ?>
-                <div class="zoom-container" style="position: relative; border: 1px solid var(--border-color); box-shadow: var(--shadow-soft); overflow: hidden; cursor: zoom-in;">
-                    <?php if ($isPlaceholder): ?>
-                        <div class="image-placeholder" style="height: 550px;">
-                            <span style="font-size: 18px; margin-top: 15px;"><?php echo htmlspecialchars($product['name']); ?></span>
-                        </div>
-                    <?php else: ?>
-                        <img class="zoom-image" src="<?php echo $imgSrc; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="width: 100%; height: auto; display: block; transition: transform 0.15s ease-out;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="image-placeholder" style="display: none; height: 550px;">
-                            <span style="font-size: 18px; margin-top: 15px;"><?php echo htmlspecialchars($product['name']); ?></span>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
+                    if ($imgFile === 'zumrut-saten.jpg') {
+                        $imgSrc = 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=600';
+                    } elseif ($imgFile === 'rose-gold-saten.jpg') {
+                        $imgSrc = 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&q=80&w=600';
+                    } elseif ($imgFile === 'gumus-payetli.jpg') {
+                        $imgSrc = 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600';
+                    } elseif ($imgFile === 'siyah-payetli.jpg') {
+                        $imgSrc = 'https://images.unsplash.com/photo-1539008885868-47a40df6ee5f?auto=format&fit=crop&q=80&w=600';
+                    } elseif ($imgFile === 'pudra-dantel.jpg') {
+                        $imgSrc = 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&q=80&w=600';
+                    } elseif ($imgFile === 'ekru-helen.jpg') {
+                        $imgSrc = 'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&q=80&w=600';
+                    } elseif ($imgFile === 'mavi-kadife.jpg') {
+                        $imgSrc = 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?auto=format&fit=crop&q=80&w=600';
+                    } elseif (strpos($imgFile, 'http://') === false && strpos($imgFile, 'https://') === false && !file_exists(__DIR__ . '/../../../public/assets/images/' . $imgFile)) {
+                        $isPlaceholder = true;
+                    }
+                ?>
+                    <div class="zoom-container" style="position: relative; border: 1px solid var(--border-color); box-shadow: var(--shadow-soft); overflow: hidden; cursor: pointer;" onclick="openLightbox('<?php echo $imgSrc; ?>')">
+                        <?php if ($isPlaceholder): ?>
+                            <div class="image-placeholder" style="height: 350px;">
+                                <span style="font-size: 14px; margin-top: 10px;"><?php echo htmlspecialchars($product['name']); ?></span>
+                            </div>
+                        <?php else: ?>
+                            <img class="zoom-image" src="<?php echo $imgSrc; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" style="width: 100%; height: 350px; object-fit: cover; display: block; transition: transform 0.15s ease-out;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; height: 350px;">
+                                <span style="font-size: 14px; margin-top: 10px;"><?php echo htmlspecialchars($product['name']); ?></span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
 
             <!-- Autoplay Runway Video (High fashion ratio, perfectly inline stacked) -->
             <?php if (!empty($product['video_url'])): ?>
@@ -113,31 +115,119 @@ $imageFiles = explode(',', $product['image_url']);
     </div>
 </div>
 
-<!-- High-Fidelity Hover Zoom Magnifier Script -->
+<!-- Lightbox Modal Overlay -->
+<div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+    <img id="lightbox-img" class="lightbox-content" src="" alt="Maksimum Görünüm">
+</div>
+
+<style>
+/* Lightbox Modal CSS */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lightbox-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 85%;
+    object-fit: contain;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    border-radius: 4px;
+    transform: scale(0.92);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lightbox-modal.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #ffffff;
+    font-size: 55px;
+    font-weight: 200;
+    transition: var(--transition);
+    cursor: pointer;
+    line-height: 1;
+    user-select: none;
+}
+
+.lightbox-close:hover {
+    color: var(--primary);
+    transform: scale(1.15);
+}
+
+@media (max-width: 768px) {
+    .lightbox-close {
+        top: 20px;
+        right: 25px;
+        font-size: 45px;
+    }
+}
+</style>
+
+<!-- High-Fidelity Hover Zoom & Lightbox Controller Script -->
 <script>
+// Lightbox Open/Close Handlers
+function openLightbox(src) {
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-img');
+    modalImg.src = src;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Stop background page scroll
+}
+
+function closeLightbox(event) {
+    if (event.target.id === 'lightbox-modal' || event.target.classList.contains('lightbox-close')) {
+        const modal = document.getElementById('lightbox-modal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Re-enable scroll
+    }
+}
+
+// Hover Magnifying Zoom Handler
 document.querySelectorAll('.zoom-container').forEach(container => {
     const img = container.querySelector('.zoom-image');
     if (!img) return;
 
-    // Use passive listener option where appropriate or prevent defaults if dragging
     container.addEventListener('mousemove', e => {
         const rect = container.getBoundingClientRect();
         
-        // Calculate pointer X/Y coordinates relative to container
+        // Calculate relative coordinates
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
-        // Convert to percentage values
+        // Turn into percentages
         const xPercent = (x / rect.width) * 100;
         const yPercent = (y / rect.height) * 100;
         
-        // Dynamically adjust transform-origin and scale up
+        // Apply origin and magnify
         img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
         img.style.transform = 'scale(1.8)';
     });
 
     container.addEventListener('mouseleave', () => {
-        // Reset origin and scale slowly/smoothly
+        // Smoothly snap back
         img.style.transformOrigin = 'center center';
         img.style.transform = 'scale(1)';
     });
