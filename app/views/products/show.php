@@ -64,7 +64,7 @@ $imageFiles = explode(',', $product['image_url']);
 
             <!-- Autoplay Runway Video (High fashion ratio, perfectly inline stacked) -->
             <?php if (!empty($product['video_url'])): ?>
-                <div style="border: 1px solid var(--border-color); box-shadow: var(--shadow-soft); background-color: var(--bg-white); padding: 15px; text-align: center;">
+                <div style="border: 1px solid var(--border-color); box-shadow: var(--shadow-soft); background-color: var(--bg-white); padding: 15px; text-align: center; max-width: 420px; width: 100%; margin: 0 auto;">
                     <h4 style="font-size: 11px; text-transform: uppercase; margin-bottom: 12px; color: var(--text-dark); display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: bold; letter-spacing: 1.5px;">
                         <i class="fa-solid fa-clapperboard" style="color: var(--primary);"></i> PODYUM / TASARIM VİDEOSU
                     </h4>
