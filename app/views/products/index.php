@@ -18,32 +18,10 @@
     </div>
 </div>
 
-<div class="container products-layout-container" style="margin-bottom: 60px;">
+<div class="container" style="margin-bottom: 60px;">
     
-    <!-- Left Sidebar: Category Filters -->
-    <aside class="products-sidebar">
-        <h3 class="products-sidebar-title">Kategoriler</h3>
-        <ul class="products-sidebar-list">
-            <li>
-                <a href="<?php echo BASE_URL; ?>/products" style="font-size: 13px; font-weight: <?php echo !isset($activeCategory) ? '600; color: var(--primary);' : '500;'; ?>">
-                    Tüm Koleksiyonlar
-                </a>
-            </li>
-            <?php if (isset($categories)): ?>
-                <?php foreach ($categories as $cat): ?>
-                    <li>
-                        <a href="<?php echo BASE_URL; ?>/category/<?php echo htmlspecialchars($cat['slug']); ?>" 
-                           style="font-size: 13px; font-weight: <?php echo (isset($activeCategory) && $activeCategory['id'] == $cat['id']) ? '600; color: var(--primary);' : '500;'; ?>">
-                            <?php echo htmlspecialchars($cat['name']); ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </ul>
-    </aside>
-
     <!-- Main Section: Products Grid -->
-    <main>
+    <main style="width: 100%;">
         
         <!-- Product Sorting & Counter Header (Visual matching user screenshot) -->
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
@@ -102,9 +80,6 @@
                         </a>
 
                         <div class="product-info">
-                            <p class="product-category">
-                                <?php echo htmlspecialchars($prod['category_name']); ?> 
-                            </p>
                             <h3 class="product-title">
                                 <a href="<?php echo BASE_URL; ?>/product/<?php echo htmlspecialchars($prod['slug']); ?>">
                                     <?php echo htmlspecialchars($prod['name']); ?>

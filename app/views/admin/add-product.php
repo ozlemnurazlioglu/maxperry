@@ -40,16 +40,7 @@
                     <input type="text" id="name" name="name" class="form-control" placeholder="Örn: Siyah Balık Model Abiye" style="background-color: var(--bg-white);" required>
                 </div>
 
-                <!-- Category selector -->
-                <div class="form-group">
-                    <label for="category_id">Kategori <span style="color: var(--error);">*</span></label>
-                    <select id="category_id" name="category_id" class="form-control" style="background-color: var(--bg-white);" required>
-                        <option value="">Kategori Seçin...</option>
-                        <?php foreach ($categories as $cat): ?>
-                            <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+
 
                 <!-- Image and Product Video -->
                 <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">

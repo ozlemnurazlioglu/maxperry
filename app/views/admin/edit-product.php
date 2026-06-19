@@ -40,17 +40,7 @@
                     <input type="text" id="name" name="name" class="form-control" value="<?php echo htmlspecialchars($product['name']); ?>" style="background-color: var(--bg-white);" required>
                 </div>
 
-                <!-- Category Selector -->
-                <div class="form-group">
-                    <label for="category_id">Kategori <span style="color: var(--error);">*</span></label>
-                    <select id="category_id" name="category_id" class="form-control" style="background-color: var(--bg-white);" required>
-                        <?php foreach ($categories as $cat): ?>
-                            <option value="<?php echo $cat['id']; ?>" <?php echo $product['category_id'] == $cat['id'] ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($cat['name']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+
 
                 <!-- Image and Product Video -->
                 <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">

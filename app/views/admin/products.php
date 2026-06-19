@@ -36,14 +36,13 @@
                     <tr>
                         <th style="width: 80px;">Görsel</th>
                         <th>Ürün Adı</th>
-                        <th>Kategori</th>
                         <th style="text-align: center;">İşlemler</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($products)): ?>
                         <tr>
-                            <td colspan="4" style="text-align: center; padding: 30px; color: var(--text-muted);">Katalogda henüz ürün bulunmuyor.</td>
+                            <td colspan="3" style="text-align: center; padding: 30px; color: var(--text-muted); Katalogda henüz ürün bulunmuyor.</td>
                         </tr>
                     <?php else: ?>
                         <?php foreach ($products as $prod): 
@@ -78,7 +77,6 @@
                                     <strong><?php echo htmlspecialchars($prod['name']); ?></strong><br>
                                     <span style="font-size: 11px; color: var(--text-muted);"><?php echo htmlspecialchars($prod['slug']); ?></span>
                                 </td>
-                                <td><?php echo htmlspecialchars($prod['category_name']); ?></td>
                                 <td style="text-align: center;">
                                     <a href="<?php echo BASE_URL; ?>/admin/product/edit/<?php echo $prod['id']; ?>" 
                                        style="color: var(--primary-hover); font-size: 14px; margin-right: 15px;" 

@@ -32,9 +32,10 @@ $currentUser = $_SESSION['user'] ?? null;
         <div class="container" style="max-width: 1300px; width: 95%;">
             <nav class="navbar">
                 <!-- Logo -->
-                <div class="logo" style="display: flex; align-items: center;">
-                    <a href="<?php echo BASE_URL; ?>/" style="display: flex; align-items: center;">
-                        <img src="<?php echo BASE_URL; ?>/public/assets/images/maxperry-logo.png" alt="MaxPerry Logo" class="main-logo" style="height: 55px; width: auto; object-fit: contain; transition: var(--transition);">
+                <div class="logo">
+                    <a href="<?php echo BASE_URL; ?>/" class="brand-logo-container">
+                        <img src="<?php echo BASE_URL; ?>/public/assets/images/maxperry-logo.png" alt="MaxPerry" class="brand-icon">
+                        <span class="brand-text">MAX PERRY</span>
                     </a>
                 </div>
 
@@ -47,24 +48,7 @@ $currentUser = $_SESSION['user'] ?? null;
                 <ul class="nav-links" id="nav-links">
                     <li><a href="<?php echo BASE_URL; ?>/">Ana Sayfa</a></li>
                     
-                    <!-- Premium Categories Hover Dropdown -->
-                    <li class="dropdown">
-                        <a href="<?php echo BASE_URL; ?>/products" class="dropdown-toggle">
-                            Koleksiyonlar <i class="fa-solid fa-chevron-down" style="font-size: 8px; margin-left: 4px; color: var(--primary);"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<?php echo BASE_URL; ?>/products">Tüm Koleksiyonlar</a></li>
-                            <?php if (isset($categories) && !empty($categories)): ?>
-                                <?php foreach ($categories as $cat): ?>
-                                    <li>
-                                        <a href="<?php echo BASE_URL; ?>/category/<?php echo htmlspecialchars($cat['slug']); ?>">
-                                            <?php echo htmlspecialchars($cat['name']); ?>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </ul>
-                    </li>
+                    <li><a href="<?php echo BASE_URL; ?>/products">Koleksiyonlar</a></li>
 
                     <li><a href="<?php echo BASE_URL; ?>/contact">İletişim</a></li>
                 </ul>

@@ -53,7 +53,7 @@ class AdminController extends Controller {
         }
         $this->checkCsrf();
 
-        $categoryId = (int)($_POST['category_id'] ?? 0);
+        $categoryId = isset($_POST['category_id']) && (int)$_POST['category_id'] > 0 ? (int)$_POST['category_id'] : null;
         $name = htmlspecialchars(trim($_POST['name'] ?? ''));
         $sku = 'MP-' . rand(110, 999);
         $description = '';
@@ -69,8 +69,8 @@ class AdminController extends Controller {
         $uploadedVideo = $this->handleVideoUpload();
         $video_url = $uploadedVideo ?? (isset($_POST['video_url']) && trim($_POST['video_url']) !== '' ? htmlspecialchars(trim($_POST['video_url'])) : null);
 
-        if (empty($name) || $categoryId <= 0) {
-            $_SESSION['error_message'] = "Lütfen ürün adı ve kategori alanlarını doldurun.";
+        if (empty($name)) {
+            $_SESSION['error_message'] = "Lütfen ürün adı alanını doldurun.";
             $this->redirect('/admin/product/add');
         }
 
@@ -142,7 +142,7 @@ class AdminController extends Controller {
             $this->redirect('/admin/products');
         }
 
-        $categoryId = (int)($_POST['category_id'] ?? 0);
+        $categoryId = isset($_POST['category_id']) && (int)$_POST['category_id'] > 0 ? (int)$_POST['category_id'] : null;
         $name = htmlspecialchars(trim($_POST['name'] ?? ''));
         $sku = $product['sku'] ?? ('MP-' . $id);
         $description = '';
@@ -173,8 +173,8 @@ class AdminController extends Controller {
         $uploadedVideo = $this->handleVideoUpload();
         $video_url = $uploadedVideo ?? (isset($_POST['video_url']) && trim($_POST['video_url']) !== '' ? htmlspecialchars(trim($_POST['video_url'])) : $product['video_url']);
 
-        if (empty($name) || $categoryId <= 0) {
-            $_SESSION['error_message'] = "Lütfen tüm zorunlu alanları doldurun.";
+        if (empty($name)) {
+            $_SESSION['error_message'] = "Lütfen ürün adı alanını doldurun.";
             $this->redirect('/admin/product/edit/' . $id);
         }
 

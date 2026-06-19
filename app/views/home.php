@@ -6,25 +6,6 @@
     </div>
 </section>
 
-<!-- Categories Section -->
-<section>
-    <div class="categories-grid">
-        <?php if (isset($categories) && !empty($categories)): ?>
-            <?php foreach ($categories as $cat): ?>
-                <div class="category-card">
-                    <h3><?php echo htmlspecialchars($cat['name']); ?></h3>
-                    <p><?php echo htmlspecialchars($cat['description']); ?></p>
-                    <a href="<?php echo BASE_URL; ?>/category/<?php echo htmlspecialchars($cat['slug']); ?>" class="link">
-                        Keşfet <i class="fa-solid fa-chevron-right" style="font-size: 9px; margin-left: 3px;"></i>
-                    </a>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">Kategori bulunamadı.</p>
-        <?php endif; ?>
-    </div>
-</section>
-
 <!-- Latest / Featured Products Section -->
 <section style="margin-top: 60px;">
     <div class="products-grid">
@@ -80,7 +61,6 @@
 
                     <!-- Product Metadata -->
                     <div class="product-info">
-                        <p class="product-category"><?php echo htmlspecialchars($prod['category_name']); ?></p>
                         <h3 class="product-title">
                             <a href="<?php echo BASE_URL; ?>/product/<?php echo htmlspecialchars($prod['slug']); ?>">
                                 <?php echo htmlspecialchars($prod['name']); ?>
